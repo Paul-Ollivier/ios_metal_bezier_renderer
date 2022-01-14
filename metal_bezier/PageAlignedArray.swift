@@ -28,7 +28,7 @@ class PageAlignedArrayImpl<T> {
     var ptr: UnsafeMutablePointer<T>
     
     static private func alignedAlloc(count: Int) -> UnsafeMutablePointer<T> {
-        var newAddr:UnsafeMutableRawPointer?
+        var newAddr : UnsafeMutableRawPointer?
         let alignment : Int = Int(getpagesize())
         var size : Int
         

@@ -35,20 +35,20 @@ struct BezierParameters
     // Set coordinateRange to <1.0 to restrict the drawing area
     static let coordinateRange : Float = 1.0
     
-    var a : Float2 = Float2()
-    var b : Float2 = Float2()
-    var p1 : Float2 = Float2()
-    var p2 : Float2 = Float2()
+    var a = Float2()
+    var b = Float2()
+    var p1 = Float2()
+    var p2 = Float2()
 
     // This will define line width for all curves:
     var lineWidth : Float = 0.10
     
-    var color : Float4 = Float4()
+    var color = Float4()
 
-    private var aMotionVec : Float2 = Float2()
-    private var bMotionVec : Float2 = Float2()
-    private var p1MotionVec : Float2 = Float2()
-    private var p2MotionVec : Float2 = Float2()
+    private var aMotionVec = Float2()
+    private var bMotionVec = Float2()
+    private var p1MotionVec = Float2()
+    private var p2MotionVec = Float2()
     
     // This sets the animation speed for the curves:
     private var animationSpeed : Float = 0.01
