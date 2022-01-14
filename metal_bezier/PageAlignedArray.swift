@@ -89,6 +89,7 @@ class PageAlignedArrayImpl<T> {
 }
 
 struct PageAlignedContiguousArray<T>: RangeReplaceableCollection {
+    
     private var impl: PageAlignedArrayImpl<T> = PageAlignedArrayImpl<T>(count: 0)
 
     /// Replaces the specified subrange of elements with the given collection.
@@ -127,8 +128,10 @@ struct PageAlignedContiguousArray<T>: RangeReplaceableCollection {
     ///   and `newElements`. If the call to `replaceSubrange` simply appends the
     ///   contents of `newElements` to the collection, the complexity is O(*n*),
     ///   where *n* is the length of `newElements`.
+
     public mutating func replaceSubrange<C>(_ subrange: Range<Int>, with newElements: C) where C : Collection, C.Iterator.Element == T {
-        let newCount = newElements.count as! Int
+        
+        let newCount = newElements.count
         let oldCount = self.count
         let eraseCount = subrange.count
         
@@ -149,7 +152,7 @@ struct PageAlignedContiguousArray<T>: RangeReplaceableCollection {
             
             // Assign over the original subRange
             var i = newElements.startIndex
-            for j in CountableRange(subrange) {
+            for j in subrange {
                 elements[j] = newElements[i]
                 newElements.formIndex(after: &i)
             }
