@@ -24,25 +24,31 @@
 import UIKit
 import MetalKit
 
+
+typealias Float2 = SIMD2<Float>
+typealias Float3 = SIMD3<Float>
+typealias Float4 = SIMD4<Float>
+
+
 struct BezierParameters
 {
     // Set coordinateRange to <1.0 to restrict the drawing area
     static let coordinateRange : Float = 1.0
     
-    var a : vector_float2 = vector_float2()
-    var b : vector_float2 = vector_float2()
-    var p1 : vector_float2 = vector_float2()
-    var p2 : vector_float2 = vector_float2()
+    var a : Float2 = Float2()
+    var b : Float2 = Float2()
+    var p1 : Float2 = Float2()
+    var p2 : Float2 = Float2()
 
     // This will define line width for all curves:
     var lineWidth : Float = 0.10
     
-    var color : vector_float4 = vector_float4()
+    var color : Float4 = Float4()
 
-    private var aMotionVec : vector_float2 = vector_float2()
-    private var bMotionVec : vector_float2 = vector_float2()
-    private var p1MotionVec : vector_float2 = vector_float2()
-    private var p2MotionVec : vector_float2 = vector_float2()
+    private var aMotionVec : Float2 = Float2()
+    private var bMotionVec : Float2 = Float2()
+    private var p1MotionVec : Float2 = Float2()
+    private var p2MotionVec : Float2 = Float2()
     
     // This sets the animation speed for the curves:
     private var animationSpeed : Float = 0.01
@@ -60,7 +66,7 @@ struct BezierParameters
 
     init() {
         // Set a random color for this curve:
-        color = vector_float4(x: Float(arc4random_uniform(1000)) / 1000.0,
+        color = Float4(x: Float(arc4random_uniform(1000)) / 1000.0,
                               y: Float(arc4random_uniform(1000)) / 1000.0,
                               z: Float(arc4random_uniform(1000)) / 1000.0,
                               w: 1.0)
@@ -92,7 +98,7 @@ struct BezierParameters
         p2MotionVec.y = makeRandSpeed()
     }
 
-    private func animateVector(vector : vector_float2, motionVec : inout vector_float2) -> vector_float2 {
+    private func animateVector(vector : Float2, motionVec : inout Float2) -> Float2 {
         if vector.x >= BezierParameters.coordinateRange || vector.x <= -BezierParameters.coordinateRange {
             motionVec.x = -motionVec.x
         }
@@ -100,7 +106,7 @@ struct BezierParameters
             motionVec.y = -motionVec.y
         }
 
-        return vector_float2(x: vector.x + motionVec.x, y: vector.y + motionVec.y)
+        return Float2(x: vector.x + motionVec.x, y: vector.y + motionVec.y)
     }
 
     mutating func animate() {
@@ -110,7 +116,7 @@ struct BezierParameters
         p2 = animateVector(vector: p2, motionVec: &p2MotionVec)
     }
 
-    init(a : vector_float2, b: vector_float2, p1 : vector_float2, p2 : vector_float2) {
+    init(a : Float2, b: Float2, p1 : Float2, p2 : Float2) {
         self.a = a
         self.b = b
         self.p1 = p1
